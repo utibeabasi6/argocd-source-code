@@ -1,4 +1,5 @@
 name: Build and Push to Docker hub
+
 on:
   push:
     branches: ["master"]
