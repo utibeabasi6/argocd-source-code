@@ -31,7 +31,9 @@ jobs:
           
       - name: Replace tag
         run: |
-          cd argocd-config/dev && sed s/argocd-code:1../argocd-code:1.${{secrets.MINOR}}/g > deployment.yaml 
+          cd argocd-config/dev
+          sed s/argocd-code:1../argocd-code:1.${{secrets.MINOR}}/g > deployment.yaml
+          git commit -am "Update deployment: GHA" && cd ../..
       
       - name: Push config to repo
         uses: ad-m/github-push-action@v0.6.0
