@@ -32,10 +32,10 @@ jobs:
       - name: Replace tag
         run: |
           cd argocd-config/dev
-          sed s/${{secrets.PREVIOUS_RELEASE}}/${{ github.event.release.tag_name }}/g deployment.yaml
+          sed s/${{secrets.PREVIOUS_RELEASE}}/${{ github.event.release.tag_name }}/g deployment.yaml > deployment.yaml
           git config --global user.email "utibeabasiumanah6@gmail.com"
           git config --global user.name "utibeabasi6"
-          git commit -am "Update deployment: GHA" && cd ../..
+          cd .. && git commit -am "Update deployment: GHA" && cd ..
       
       - name: Push config to repo
         uses: ad-m/github-push-action@v0.6.0
