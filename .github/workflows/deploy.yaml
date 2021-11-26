@@ -22,7 +22,23 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.IMAGE_TAG }}:1.${{ secrets.MINOR }}
-
+      
+      - name: Clone config repo
+        uses: sudosubin/git-clone-action@v1.0.1
+        with:
+          repository: utibeabasi6/argocd-config
+          
+      - name: Replace tag
+        run: |
+          cd argocd-config/dev && sed -i s/argocd-code:1../argocd-code:1.${{secters.MINOR}}/g > deployment.yaml 
+      
+      - name: Push config to repo
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.REPO_ACCESS_TOKEN }}
+          repository: utibeabasi6/argocd-config
+          directory: argocd-config
+          
       - name: Update Minor version
         uses: hmanzur/actions-set-secret@v2.0.0
         with:
