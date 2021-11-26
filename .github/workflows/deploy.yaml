@@ -32,7 +32,7 @@ jobs:
       - name: Replace tag
         run: |
           cd argocd-config/dev
-          sed s/argocd-code:v...../argocd-code:${{ github.event.release.tag_name }}/g > deployment.yaml
+          sed s/${{secrets.PREVIOUS_RELEASE}}/${{ github.event.release.tag_name }}/g > deployment.yaml
           git config --global user.email "utibeabasiumanah6@gmail.com"
           git config --global user.name "utibeabasi6"
           git commit -am "Update deployment: GHA" && cd ../..
@@ -44,4 +44,12 @@ jobs:
           repository: utibeabasi6/argocd-config
           directory: argocd-config
           
-     
+      - name: Update previous release
+        uses: hmanzur/actions-set-secret@v2.0.0
+        with:
+          name: 'PREVIOUS_RELEASE'
+          value: ${{ github.event.release.tag_name }}
+          repository: utibeabasi6/argocd-source-code
+          token: ${{ secrets.REPO_ACCESS_TOKEN }}
+
+
