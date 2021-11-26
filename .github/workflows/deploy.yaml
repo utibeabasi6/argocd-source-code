@@ -27,6 +27,7 @@ jobs:
         uses: sudosubin/git-clone-action@v1.0.1
         with:
           repository: utibeabasi6/argocd-config
+          path: argocd-config
           
       - name: Replace tag
         run: |
