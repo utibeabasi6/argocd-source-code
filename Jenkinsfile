@@ -1,20 +1,9 @@
 pipeline {
-    agent any
-    checkout scm
+    agent { docker { image 'python:3.10.1-alpine' } }
     stages {
-        stage('Build') {
+        stage('build') {
             steps {
-                echo 'Building..'
-            }
-        }
-        stage('Test') {
-            steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh 'python --version'
             }
         }
     }
